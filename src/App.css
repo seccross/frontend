@@ -1,0 +1,36 @@
+.App {
+  text-align: center;
+}
+
+
+.error-marker {
+  position:absolute;
+  background:rgba(246, 79, 57, 0.516);
+  z-index:20
+}
+.error_label {
+  text-transform: capitalize;
+    color: #b50000;
+    font-weight: 500;
+    background-color: #b5000020;
+    display: inline-block;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+.successful_label, .nobug_label {
+  text-transform: capitalize;
+    color: #00b500;
+    font-weight: 500;
+    background-color: #00b50020;
+    display: inline-block;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+.processing_label{
+  color: #b4ab0a;
+  font-weight: 500;
+  background-color: #b4ab0a20;
+  display: inline-block;
+  padding: 5px 10px;
+  border-radius: 5px;
+}
