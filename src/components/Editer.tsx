@@ -1,15 +1,12 @@
-
-
 import styled from "styled-components";
 import AceEditor from "react-ace";
-
+import "ace-builds/src-noconflict/mode-javascript";
 import "ace-builds/src-noconflict/mode-markdown";
 import "ace-builds/src-noconflict/theme-github";
 import "ace-builds/src-noconflict/theme-cloud9_day";
 import "ace-builds/src-noconflict/ext-language_tools";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 
-const mj = require( "ace-builds/src-noconflict/mode-javascript");
 export default function Editer({
   data,
   onChange = (value) => {},
@@ -17,7 +14,7 @@ export default function Editer({
   annotations,
   markers,
   style,
-  mode='javascript',
+  mode = "javascript",
   name,
   showLineNumbers = true,
 }: {
@@ -32,24 +29,39 @@ export default function Editer({
   style?: { [key: string]: string };
 }) {
   const editerRef = useRef<any>(null);
-  // console.log(modejavascript,modemarkdown)
-  // useEffect(() => {
-  //   console.log('data',data.length)
-  // },[data])
+  const timer = useRef<any>(null)
+  useEffect(() => {
+    if (editerRef.current && markers?.length) {
+      console.log("markers ===>", markers, editerRef.current.gotoLine);
+      timer.current  && clearTimeout(timer.current )
+      timer.current = setTimeout(() => {
+        editerRef.current.gotoLine(markers[0].startRow + 15);
+      },300);
+    }
+    return () => {
+      timer.current  && clearTimeout(timer.current )
+    }
+  }, [markers,data]);
   return (
     <Wrapper style={style}>
       <AceEditor
         style={{ width: "100%", height: "100%", borderRadius: "10px" }}
         placeholder="Placeholder Text"
-        mode={"javascript"}
+        mode="javascript"
         theme="cloud9_day"
         name={name || "blah"}
         onLoad={(intance) => {
           editerRef.current = intance;
+          console.log("intance", intance, markers);
+          // editerRef.current.gotoLine(15);
           // const session:any = intance.getSession();
+          // console.log('session',session)
           // session.$highlightLine( 280, "myHighlightClass");
         }}
-        onChange={onChange}
+        onChange={(e) => {
+          console.log('onChange',e)
+          onChange(e)
+        }}
         fontSize={14}
         readOnly={readOnly}
         annotations={annotations}

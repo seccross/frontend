@@ -73,8 +73,8 @@ const exampleData: ExampleProps[] = [
     check:"T3",
     version:"0.5.0",
     size: 919,
-    bugs: 1,
-    file_type: 2,
+    bugs: 2,
+    file_type: 1,
     file_source_type:"Solidity source code",
     hash: '',
     create: new Date('2023-01-27 08:00').getTime()
